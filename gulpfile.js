@@ -3,6 +3,11 @@ var gulpPlugins = require('gulp-load-plugins')();
 var runSequence = require('run-sequence');
 var merge = require('merge');
 var gulpTraceur = require('./tools/transpiler/gulp-traceur');
+var spawn = require('child_process').spawn;
+var through2 = require('through2');
+var which = require('which');
+var karma = require('karma').server;
+var minimist = require('minimist');
 
 var clean = require('./tools/build/clean');
 var deps = require('./tools/build/deps');
@@ -428,5 +433,31 @@ gulp.task('build.cjs', function() {
 gulp.task('build.js', ['build.js.dev', 'build.js.prod']);
 
 gulp.task('clean', ['build/clean.js', 'build/clean.dart', 'build/clean.cjs', 'build/clean.docs']);
+
+// ------------------
+// TESTS
+function getBrowsersFromCLI() {
+  var args = minimist(process.argv.slice(2));
+  return [args.browsers?args.browsers:'DartiumWithWebPlatform']
+}
+gulp.task('test.js', function (done) {
+  karma.start({configFile: __dirname + '/karma-js.conf.js'}, done);
+});
+gulp.task('test.dart', function (done) {
+  karma.start({configFile: __dirname + '/karma-dart.conf.js'}, done);
+});
+gulp.task('test.js/ci', function (done) {
+  karma.start({configFile: __dirname + '/karma-js.conf.js', singleRun: true, reporters: ['dots'], browsers: getBrowsersFromCLI()}, done);
+});
+gulp.task('test.dart/ci', function (done) {
+  karma.start({configFile: __dirname + '/karma-dart.conf.js', singleRun: true, reporters: ['dots'], browsers: getBrowsersFromCLI()}, done);
+});
+gulp.task('ci', function(done) {
+  runSequence(
+    'test.js/ci',
+    'test.dart/ci'
+  );
+});
+
 
 gulp.task('build', ['build.js', 'build.dart', 'build.cjs']);

@@ -1,112 +1,38 @@
-Angular [![Build Status](https://travis-ci.org/angular/angular.svg?branch=master)](https://travis-ci.org/angular/angular)
+[![Build Status](https://travis-ci.org/angular/angular.svg?branch=master)](https://travis-ci.org/angular/angular)
+[![CircleCI](https://circleci.com/gh/angular/angular/tree/master.svg?style=shield)](https://circleci.com/gh/angular/angular/tree/master)
+[![Join the chat at https://gitter.im/angular/angular](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/angular/angular?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Issue Stats](http://issuestats.com/github/angular/angular/badge/pr?style=flat)](http://issuestats.com/github/angular/angular)
+[![Issue Stats](http://issuestats.com/github/angular/angular/badge/issue?style=flat)](http://issuestats.com/github/angular/angular)
+[![npm version](https://badge.fury.io/js/%40angular%2Fcore.svg)](https://badge.fury.io/js/%40angular%2Fcore)
+[![Downloads](http://img.shields.io/npm/dm/angular2.svg)](https://npmjs.org/package/angular2)
+
+[![Sauce Test Status](https://saucelabs.com/browser-matrix/angular2-ci.svg)](https://saucelabs.com/u/angular2-ci)  
+*Safari (7+), iOS (7+), Edge (14) and IE mobile (11) are tested on [BrowserStack][browserstack].*
+
+Angular
 =========
 
-This is the repository for the upcoming 2.0 version. If you're looking for the current official version of Angular you
-should go to [angular/angular.js](https://github.com/angular/angular.js)
+Angular is a development platform for building mobile and desktop web applications. This is the
+repository for [Angular 2][ng2] Typescript/JavaScript (JS).
+ 
+Angular2 for [Dart][dart] can be found at [dart-lang/angular2][ng2dart].
 
-## Build
 
-### Prerequisites
+## Quickstart
 
-If you don't already have `npm`, get it by installing [node.js](http://nodejs.org/).
+[Get started in 5 minutes][quickstart].
 
-1. `npm install`
-2. `npm install -g gulp` (you might need to prefix this command with `sudo`)
-3. `npm install -g protractor` (you might need to prefix this command with `sudo`)
-4. `webdriver-manager update`
-5. If you plan to use Dart:
-  1. [Install the Dart SDK](https://www.dartlang.org/tools/sdk/)
-  2. [Add the Dart SDK's `bin` directory to your system path](https://www.dartlang.org/tools/pub/installing.html)
-  3. Get the pub packages you need: `pub get`
-6. `gulp build`
 
-### Folder structure
+## Want to help?
 
-* `modules/*`: modules that will be loaded in the browser
-* `tools/*`: tools that are needed to build Angular
+Want to file a bug, contribute some code, or improve documentation? Excellent! Read up on our
+guidelines for [contributing][contributing] and then check out one of our issues in the [hotlist: community-help](https://github.com/angular/angular/labels/hotlist%3A%20community-help).
 
-### File endings
-
-* `*.js`: javascript files that get transpiled to Dart and EcmaScript 5
-* `*.es6`: javascript files that get transpiled only to EcmaScript 5
-* `*.es5`: javascript files that don't get transpiled
-* `*.dart`: dart files that don't get transpiled
-
-### Build
-
-1. `gulp build` -> result is in `dist` folder
-
-  * will also run `pub get` for the subfolders in `modules`
-    and run `dartanalyzer` for every file that matches
-    `<module>/src/<module>.dart`, e.g. `di/src/di.dart`
-
-2. `gulp clean` -> cleans the `dist` folder
-
-### Unit tests
-
-1. `gulp test.js`: JS tests
-2. `gulp test.dart`: Dart tests
-
-Notes for transpiler tests:
-
-The karma preprocessor is setup in a way so that after every test run
-the transpiler is reloaded. With that it is possible to make changes
-to the preprocessor and run the tests without exiting karma
-(just touch a test file that you would like to run).
-
-### Performance tests
-
-1. `gulp build.cjs` (builds benchpress and tests into `dist/cjs` folder)
-2. `gulp serve.js.prod serve.js.dart2js` (runs local webserver)
-3. `protractor protractor-perf-js.conf.js`: JS performance tests
-4. `protractor protractor-perf-dart2js.conf.js`: Dart2JS performance tests
-
-### Examples
-
-To see the examples, first build the project as described above.
-
-#### Hello World Example
-This example consists of three basic pieces - a component, a decorator and a service.
-They are all constructed via injection. For more information see the comments in the
-source `modules/examples/src/hello_world/index.js`.
-
-You can build this example as either JS or Dart app:
-* (JS) `gulp serve.js.dev` and open `localhost:8000/examples/web/hello_world/` in Chrome.
-* (Dart) `gulp serve/examples.dart` and open `localhost:8080/hello_world` in Chrome (for dart2js) or Dartium (for Dart VM).
-
-## Debug the transpiler
-
-If you need to debug the transpiler:
-
-- add a `debugger;` statement in the transpiler code,
-- from the root folder, execute `node debug node_modules/.bin/gulp build` to enter the node
-  debugger
-- press "c" to execute the program until you reach the `debugger;` statement,
-- you can then type "repl" to enter the REPL and inspect variables in the context.
-
-See the [Node.js manual](http://nodejs.org/api/debugger.html) for more information.
-
-Notes:
-- You can also execute `node node_modules/.bin/karma start karma-dart.conf.js` depending on which
-  code you want to debug (the former will process the "modules" folder while the later processes
-  the transpiler specs),
-- You can also add `debugger;` statements in the specs (JavaScript). The execution will halt when
-  the developer tools are opened in the browser running Karma.
-
-## Debug the tests
-
-If you need to debug the tests:
-
-- add a `debugger;` statement to the test you want to debug (oe the source code),
-- execute karma `gulp test.js`,
-- press the top right "DEBUG" button,
-- open the dev tools and press F5,
-- the execution halt at the `debugger;` statement
-
-Note (WebStorm users):
-You can create a Karma run config from WebStorm.
-Then in the "Run" menu, press "Debug 'karma-js.conf.js'", WebStorm will stop in the generated code
-on the `debugger;` statement.
-You can then step into the code and add watches.
-The `debugger;` statement is needed because WebStorm will stop in a transpiled file. Breakpoints in
-the original source files are not supported at the moment.
+[browserstack]: https://www.browserstack.com/
+[contributing]: http://github.com/angular/angular/blob/master/CONTRIBUTING.md
+[dart]: http://www.dartlang.org
+[quickstart]: https://angular.io/docs/ts/latest/quickstart.html
+[ng2]: http://angular.io
+[ngDart]: http://angulardart.org
+[ngJS]: http://angularjs.org
+[ng2dart]: https://github.com/dart-lang/angular2
